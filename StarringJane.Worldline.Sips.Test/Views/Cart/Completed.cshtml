@@ -1,0 +1,47 @@
+﻿@model PaymentInfo
+@using StarringJane.Worldline.Sips.Models;
+@{
+    ViewBag.Title = "Worldline Sips Test - Order completed";
+}
+
+<h1>Worldline Sips Test- Order completed</h1>
+
+@if (Model.Data["responseCode"] != "00" && Model.Data["responseCode"] != "17")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">Error</div>
+                <div class="panel-body">@Model.Data["responseMessage"]</div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
+                @if (Model.Data["responseCode"] == "17")
+                {
+                    <h2>Order canceled</h2>
+                }
+                else
+                {
+                    <h2>Order completed</h2>
+                }
+            </div>
+            @if (Model.Data["responseCode"] == "00")
+            {
+                <div class="page-body">
+                    <h3>Result:</h3>
+                    <p>
+                        @foreach (var item in Model.Data) {
+                            <text>@item.Key = "@item.Value"</text><br />
+                        }
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+}

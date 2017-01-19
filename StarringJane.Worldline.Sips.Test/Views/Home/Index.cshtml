@@ -1,0 +1,245 @@
+﻿@model Cart
+@using StarringJane.Worldline.Sips.Test.Models;
+@{
+    ViewBag.Title = "Worldline Sips Test";
+}
+
+<h1>Worldline Sips Test</h1>
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">Error</div>
+                <div class="panel-body">@Model.Error</div>
+            </div>
+        </div>
+    </div>
+}
+
+<form action="/home" enctype="multipart/form-data" method="post">
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-title">
+            <h2>Shoppingcart</h2>
+        </div>
+        <div class="page-body">
+            <div class="order-summary-content">
+                <div class="table-wrapper">
+                    <table class="cart">
+                        <colgroup>
+                            <col width="1" />
+                            <col width="1" />
+                            <col />
+                            <col width="1" />
+                            <col width="1" />
+                            <col width="1" />
+                        </colgroup>
+                        <thead>
+                            <tr class="cart-header-row">
+                                <th><span class="item-count">#</span></th>
+                                <th class="product-picture"></th>
+                                <th class="product" data-hide="w410, w480, w580, w768">
+                                    Products
+                                </th>
+                                <th class="unit-price" data-hide="w410, w480">
+                                    Prijs
+                                </th>
+                                <th class="quantity" data-hide="w410">
+                                    Quantity
+                                </th>
+                                <th class="subtotal">
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @Html.HiddenFor(model => model.CustomerId)
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <tr class="cart-item-row">
+                                    <td>
+                                        <span class="item-count">@item.Id</span>
+                                    </td>
+                                    <td class="product-picture">
+                                        i<img alt="Product Image" src="@item.ImageUrl" title="Afbeelding van product" />
+                                    </td>
+                                    <td class="product">
+                                        @item.ProductName
+                                    </td>
+                                    <td class="unit-price">
+                                        <span class="product-unit-price">@string.Format("{0} {1}", "€", item.UnitPrice.ToString("N"))</span>
+                                    </td>
+                                    <td class="quantity">
+                                        <input name="itemquantity101" type="text" value="@item.Quantity" class="qty-input" readonly />
+                                    </td>
+                                    <td class="subtotal">
+                                        <span class="product-subtotal">@string.Format("{0} {1}", "€", item.TotalPrice.ToString("N"))</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-title">
+            <h2>Billing address</h2>
+        </div>
+        <div class="page-body">
+            <div class="billing-addresses">
+                <div class="section new-billing-address">
+                    <div class="enter-address">
+                        <div class="edit-address">
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingContact.Firstname)
+                                @Html.TextBoxFor(model => model.BillingContact.Firstname)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingContact.Lastname)
+                                @Html.TextBoxFor(model => model.BillingContact.Lastname)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingContact.Email)
+                                @Html.TextBoxFor(model => model.BillingContact.Email)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingAddress.Company)
+                                @Html.TextBoxFor(model => model.BillingAddress.Company)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingAddress.Country)
+                                @Html.TextBoxFor(model => model.BillingAddress.Country)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingAddress.ZipCode)
+                                @Html.TextBoxFor(model => model.BillingAddress.ZipCode)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingAddress.City)
+                                @Html.TextBoxFor(model => model.BillingAddress.City)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingAddress.Street)
+                                @Html.TextBoxFor(model => model.BillingAddress.Street)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.BillingContact.Phone)
+                                @Html.TextBoxFor(model => model.BillingContact.Phone)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="page-title">
+            <h2>Shipping address</h2>
+        </div>
+        <div class="page-body">
+            <div class="shipping-addresses">
+                <div class="section new-shipping-address">
+                    <div class="enter-address">
+                        <div class="edit-address">
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingContact.Firstname)
+                                @Html.TextBoxFor(model => model.ShippingContact.Firstname)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingContact.Lastname)
+                                @Html.TextBoxFor(model => model.ShippingContact.Lastname)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingContact.Email)
+                                @Html.TextBoxFor(model => model.ShippingContact.Email)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingAddress.Company)
+                                @Html.TextBoxFor(model => model.ShippingAddress.Company)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingAddress.Country)
+                                @Html.TextBoxFor(model => model.ShippingAddress.Country)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingAddress.ZipCode)
+                                @Html.TextBoxFor(model => model.ShippingAddress.ZipCode)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingAddress.City)
+                                @Html.TextBoxFor(model => model.ShippingAddress.City)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingAddress.Street)
+                                @Html.TextBoxFor(model => model.ShippingAddress.Street)
+                            </div>
+                            <div class="inputs">
+                                @Html.LabelFor(model => model.ShippingContact.Phone)
+                                @Html.TextBoxFor(model => model.ShippingContact.Phone)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="totals">
+            <div class="total-info">
+                <table class="cart-total">
+                    <tbody>
+                        <tr class="order-subtotal">
+                            <td class="cart-total-left">
+                                <label>Subtotal:</label>
+                            </td>
+                            <td class="cart-total-right">
+                                <span class="value-summary">@string.Format("{0} {1}", "€", Model.SubTotal.ToString("N"))</span>
+                            </td>
+                        </tr>
+                        <tr class="shipping-cost">
+                            <td class="cart-total-left">
+                                <label>Shipping cost:</label>
+                            </td>
+                            <td class="cart-total-right">
+                                <span class="value-summary">@string.Format("{0} {1}", "€", Model.ShippingCost.ToString("N"))</span>
+                            </td>
+                        </tr>
+                        <tr class="tax-value">
+                            <td class="cart-total-left">
+                                <label>VAT (incl):</label>
+                            </td>
+                            <td class="cart-total-right">
+                                <span class="value-summary">@string.Format("{0} {1}", "€", Model.VAT.ToString("N"))</span>
+                            </td>
+                        </tr>
+                        <tr class="order-total">
+                            <td class="cart-total-left">
+                                <label>Total:</label>
+                            </td>
+                            <td class="cart-total-right">
+                                <span class="value-summary"><strong>@string.Format("{0} {1}", "€", Model.Total.ToString("N"))</strong></span>
+                            </td>
+                        </tr>
+                        <tr class="checkout-button-row button">
+                            <td colspan="2" class="checkout-button-cell">
+                                <div class="select-button">
+                                    <input type="submit" id="checkout" name="checkout" value="Afrekenen" class="button-1 checkout-button" />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
